@@ -34,7 +34,8 @@ client.load = () => {
 		if (!eventName.endsWith('.js')) {
 			warn(`Invalid event file: \x1b[2m${eventName}\x1b[0m`);
 			continue;
-		} else eventName = eventName.split('.')[0];
+		} else
+			eventName = eventName.split('.')[0];
 
 		log(`Event \x1b[2m"${eventName}"\x1b[0m loaded`);
 
@@ -56,7 +57,8 @@ client.load = () => {
 		if (!commandName.endsWith('.js')) {
 			warn(`Invalid command file: \x1b[2m${commandName}\x1b[0m`);
 			continue;
-		} else commandName = commandName.split('.')[0];
+		} else
+			commandName = commandName.split('.')[0];
 
 		log(`Command \x1b[2m"${commandName}"\x1b[0m loaded`);
 		client.commands.set(commandName, command);
@@ -72,7 +74,8 @@ client.restart = async () => {
 	await client.destroy();
 
 	process.on('exit', function (code) {
-		if(code != 300) return;
+		if(code != 300)
+			return;
 
 		require('child_process').spawn(process.argv.shift(), process.argv, {
 			cwd: process.cwd(),
@@ -87,8 +90,10 @@ function getFilesRecursive(dirPath, files = []) {
 	const result = fs.readdirSync(dirPath);
 	
 	for (const file of result)
-		if (fs.statSync(dirPath + '/' + file).isDirectory() && file != 'node_modules') files = getFilesRecursive(dirPath + '/' + file, files);
-		else files.push(path.join(dirPath, '/', file));
+		if (fs.statSync(dirPath + '/' + file).isDirectory() && file != 'node_modules')
+			files = getFilesRecursive(dirPath + '/' + file, files);
+		else
+			files.push(path.join(dirPath, '/', file));
 	
 	return files;
 }
