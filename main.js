@@ -15,7 +15,8 @@ const client = new Discord.Client();
 
 //! Bot source directory
 // Don't forget the trailing slash
-client.config = require(`./config.json`);
+client.config = require('.config/config.json');
+client.permissions = require('./config/permissions.json');
 client.root = client.config.root;
 
 log('Starting...');

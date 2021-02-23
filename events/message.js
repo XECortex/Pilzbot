@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 
-module.exports = async function(client, message) {
-	if (message.author.bot) return;
+module.exports = async (client, message) => {
+	if (message.author.bot)
+		return;
 
 	if (message.guild) {
 		if (message.content.replace(/[^A-Z]/g, '').length > message.content.length / 1.5 && message.content.length > 5) {
@@ -12,8 +13,10 @@ module.exports = async function(client, message) {
 
 		const prefixRegex = new RegExp(`^<@!?${client.user.id}>\\s*`);
 
-		if (prefixRegex.test(message.content)) return message.channel.send(`My prefix is \`${client.config.prefix}\``);
-		if (!(message.content.startsWith(client.config.prefix))) return;
+		if (prefixRegex.test(message.content))
+			return message.channel.send(`My prefix is \`${client.config.prefix}\``);
+		if (!(message.content.startsWith(client.config.prefix)))
+			return;
 
 		const args = message.content.substr(client.config.prefix.length).split(' ');
 		const command = args[0].toLowerCase();
@@ -21,19 +24,46 @@ module.exports = async function(client, message) {
 
 		args.shift();
 
-		if (commandModule)
-			if (commandModule.category != 'dev' || message.author.id == '480060529407164426') commandModule.exec(client, message, args);
+		if (commandModule) {
+			if (checkPermission(client, command, commandModule, message))
+				commandModule.exec(client, message, args);
 			else {
 				const permissionEmbed = new Discord.MessageEmbed()
 					.setColor(0xf93a2f)
 					.setTitle(':no_entry_sign: No permission')
-					.setDescription(`${message.author.toString()}, only bot developers can use this command`);
+					.setDescription(`${message.author.toString()}, you have no permission to execute this command`);
 			
-				return message.channel.send(permissionEmbed)
-					.then(msg => {
-						message.delete({ timeout: 10000 });
-						msg.delete({ timeout: 10000 });
-					});
+				return message.channel.send(permissionEmbed).then(msg => {
+					message.delete({ timeout: 10000 });
+					msg.delete({ timeout: 10000 });
+				});
 			}
+		}
 	}
+}
+
+function checkPermission(client, command, commandModule, message) {
+	// If the user has permissions for...
+	// ...the category
+	if (commandModule.category in client.permissions.users.categories)
+		if (client.permissions.users.categories[commandModule.category].includes(message.author.id))
+			return true;
+
+	// ...the command itself
+	if (command in client.permissions.users.commands)
+		if (client.permissions.users.commands[command].includes(message.author.id))
+			return true;
+	
+	// If the roles has permissions for...
+	// ...the category
+	console.log(message.member.roles.cache.array())
+	if (commandModule.category in client.permissions.roles.categories) {
+		
+	}
+		if (client.permissions.roles.categories[commandModule.category].some(item => message.member.roles.cache.array().includes(item)))
+			return true;
+	
+	return false;
+
+	// return arr1.some(item => arr2.includes(item))
 }
