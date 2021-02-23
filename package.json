@@ -1,0 +1,15 @@
+{
+    "name": "pilzbot",
+    "version": "0.1",
+    "license" : "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/XECortex/Pilzbot.git"
+    },
+    "scripts": {
+        "start": "node main.js"
+    },
+    "dependencies": {
+        "discord.js": "latest"
+    }
+}

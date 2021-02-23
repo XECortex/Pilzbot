@@ -1,11 +1,22 @@
+/*
+ * Measure the ping of the bot
+ */
 const Discord = require('discord.js');
 
-module.exports.exec = async function(client, message, args) {
+module.exports.exec = async (client, message, args) => {
 	let ping = await message.channel.send('Pinging...');
+
 	const pingEmbed = new Discord.MessageEmbed()
 		.setColor(0x36393f)
 		.setTitle(':ping_pong: Pong!')
-		.setDescription(`Many data about stuff noone is interested in:\n\`\`\`\nPing: ${Math.round(client.ws.ping)} ms\nLatency: ${ping.createdTimestamp - message.createdTimestamp} ms\nUptime: ${Math.round(client.uptime / 1000 / 60)} minutes\n\`\`\`\n\nSuch debug stuff:\n\`\`\`\nArgs: ${args}\n\`\`\``);
+		.setDescription(`\
+\`\`\`\n\
+Ping: ${Math.round(client.ws.ping)} ms\n\
+Latency: ${ping.createdTimestamp - message.createdTimestamp} ms\n\
+Uptime: ${Math.round(client.uptime / 1000 / 60)} minutes\n\
+\`\`\`\n\
+\`\`\`\nArgs: ${args}\n\`\`\`\
+		`);
 	
 	ping.delete();
 	return message.channel.send(pingEmbed);
