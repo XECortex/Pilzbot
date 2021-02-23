@@ -1,0 +1,5 @@
+{
+	"root": "/var/node/pilzbot/",
+	"token": "xxx",
+	"prefix": "sudo "
+}
