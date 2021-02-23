@@ -62,8 +62,14 @@ function checkPermission(client, command, commandModule, message) {
 				return true;
 		}
 	}
+
+	// ...the command itslef
+	if (command in client.permissions.users.categories) {
+		for (id of client.permissions.users.categories[command]) {
+			if (message.author.id == id)
+				return true;
+		}
+	}
 	
 	return false;
-
-	// return arr1.some(item => arr2.includes(item))
 }
