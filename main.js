@@ -16,7 +16,7 @@ const client = new Discord.Client();
 //! Bot source directory
 // Don't forget the trailing slash
 client.root = '/var/node/pilzbot/';
-client.config = require(`${client.root}config.json`);
+client.config = require(`${client.root}config/config.json`);
 
 log('Starting...');
 log('')
