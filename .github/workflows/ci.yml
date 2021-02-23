@@ -22,4 +22,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: pilzschaf/pilzbot:latest
+          tags: docker.pkg.github.com/pilzschaf/pilzbot:latest
