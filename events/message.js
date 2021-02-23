@@ -56,12 +56,12 @@ function checkPermission(client, command, commandModule, message) {
 	
 	// If the roles has permissions for...
 	// ...the category
-	console.log(message.member.roles.cache.array())
 	if (commandModule.category in client.permissions.roles.categories) {
-		
+		for (role of client.permissions.roles.categories[commandModule.category]) {
+			if (message.member.roles.cache.find(r => r.id == role))
+				return true;
+		}
 	}
-		if (client.permissions.roles.categories[commandModule.category].some(item => message.member.roles.cache.array().includes(item)))
-			return true;
 	
 	return false;
 
