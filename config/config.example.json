@@ -1,5 +1,7 @@
 {
 	"root": "/var/node/pilzbot/",
 	"token": "xxx",
-	"prefix": "sudo "
+	"prefix": "sudo ",
+	"ytChannelId": "xxx",
+	"announcementChannelId": "xxx"
 }
