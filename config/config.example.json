@@ -3,5 +3,11 @@
 	"token": "xxx",
 	"prefix": "sudo ",
 	"ytChannelId": "xxx",
+	"twitch": {
+		"channel": "xe_cortex",
+		"query": "xe%20cortex",
+		"clientId": "xxx",
+		"token": "xxx"
+	},
 	"announcementChannelId": "xxx"
 }
